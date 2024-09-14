@@ -1,0 +1,15 @@
+<h1>查询 - <%= report.name %>
+</h1>
+<br />
+<form method="POST" action="/report/run_query/<%= report.id %>">
+    <% params.forEach(param=> { %>
+        <label>
+            <%= param.title %> (默认值: <%= param.default_value %>):
+        </label><br>
+        <br/>
+        <input type="text" name="<%= param.param_name %>" value="<%= param.default_value %>"><br>
+        <br />
+        <% }) %>
+        <br/>
+            <button type="submit">执行查询</button>
+</form>

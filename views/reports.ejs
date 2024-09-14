@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        // 检测 URL 参数并在页面加载时调用函数
+        window.onload = function () {
+            var adminParam = getURLParameter('admin');
+            var elementsToHide = document.getElementsByClassName('admin-action');
+
+            if (adminParam !== '1') {
+                for (var i = 0; i < elementsToHide.length; i++) {
+                    elementsToHide[i].style.display = 'none';
+                }
+                document.getElementById('new-report-form').style.display = 'none';
+            } else {
+                document.getElementById('new-report-form').style.display = 'inline';
+            }
+        };
+
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>所有报表</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>报表名称</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reports.forEach(report=> { %>
+                <tr>
+                    <td>
+                        <%= report.name %>
+                    </td>
+                    <td>
+                        <a href="/report/query/<%= report.id %>" class="action-link">执行查询</a> | <!-- 添加执行查询按钮 -->
+                        <a href="/report/edit/<%= report.id %>" class="admin-action action-link" >编辑</a> |
+                        <form action="/report/delete/<%= report.id %>" method="POST" style="display:inline;"
+                            class="admin-action action-link" onsubmit="return confirmDelete();">
+                            <button type="submit">删除</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <br />
+    <form id="new-report-form" action="/report/new" method="GET" style="display:none;">
+        <button type="submit">新增报表</button>
+    </form>
+</body>
+
+</html>

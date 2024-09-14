@@ -1,0 +1,43 @@
+/* styles.css */
+table {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    /* 添加表格边框 */
+}
+
+td,
+th {
+    padding: 10px;
+    /* 设置单元格的内边距 */
+    border-bottom: 1px solid #ddd;
+    /* 添加底部边框 */
+}
+
+thead tr {
+    background-color: #f2f2f2;
+    /* 设置表头行的背景颜色 */
+}
+
+th {
+    text-align: left;
+    /* 文字左对齐 */
+    font-weight: bold;
+    /* 加粗字体 */
+}
+
+td:first-child {
+    padding-right: 20px;
+    /* 增加第一个单元格的右侧内边距 */
+}
+
+/* 表头单元格的特殊样式 */
+thead th {
+    border-bottom: 2px solid #ddd;
+    /* 较粗的底部边框 */
+}
+
+.action-link {
+    margin-left: 10px;
+    margin-right: 10px;
+    /* 在每个链接之后添加间距 */
+}

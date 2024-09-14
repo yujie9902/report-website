@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <h1>报表: <%= report.name %> 的查询结果</h1>
+    <!-- 添加导出到Excel的按钮 -->
+    <form method="POST" action="/report/export/<%= report.id %>">
+        <button type="submit">导出到Excel</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <% Object.keys(results[0]).forEach(key=> { %>
+                    <th>
+                        <%= key %>
+                    </th>
+                    <% }) %>
+            </tr>
+        </thead>
+        <tbody>
+            <% results.forEach(row=> { %>
+                <tr>
+                    <% Object.values(row).forEach(value=> { %>
+                        <td>
+                            <%= value %>
+                        </td>
+                        <% }) %>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<h1>
+    <%= report ? '编辑报表' : '新增报表' %>
+</h1>
+
+<form method="POST" action="<%= report ? '/report/edit/' + report.id : '/report/new' %>">
+    <label>报表名称:</label><br>
+    <input type="text" name="name" value="<%= report ? report.name : '' %>"><br>
+
+    <label>SQL 语句:</label><br>
+    <textarea name="sql_query" style="width: 60%; height: 200px; resize: none;"><%= report ? report.sql_query : '' %></textarea><br>
+
+    <h2>参数</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>参数名称</th>
+                <th>中文说明</th>
+                <th>默认值</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% params.forEach(param=> { %>
+                <tr>
+                    <td>
+                        <%= param.param_name %>
+                    </td>
+                    <td>
+                        <%= param.title %>
+                    </td>
+                    <td>
+                        <%= param.default_value %>
+                    </td>
+                    <td>
+                        <a href="/report/delete_param/<%= param.id %>">删除</a>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <h3>新增参数</h3>
+    <label>参数名称:</label><br>
+    <input type="text" name="new_param_name"><br>
+
+    <label>中文说明:</label><br>
+    <input type="text" name="new_param_title"><br>
+
+    <label>默认值:</label><br>
+    <input type="text" name="new_param_default"><br>
+
+    <button type="submit">保存报表</button>
+</form>
+
+<a href="/report">返回列表</a>
