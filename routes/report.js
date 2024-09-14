@@ -2,21 +2,15 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
 const ExcelJS = require('exceljs');
+const fs = require('fs');
+
+// 读取配置文件
+const configPath = './config.json';
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
 // 创建MySQL连接池
-const pool = mysql.createPool({
-    host: 'rm-uf6csq15hw0l22d797o.mysql.rds.aliyuncs.com',
-    user: 'root',
-    password: '006OQXKwvVaOXlP9byRN',
-    database: 'rog'
-});
-
-const poolOnlySelect = mysql.createPool({
-    host: 'rm-uf6csq15hw0l22d797o.mysql.rds.aliyuncs.com',
-    user: 'reporter',
-    password: 'cykjdb123@',
-    database: 'rog'
-});
+const pool = mysql.createPool(config.mysql.default);
+const poolOnlySelect = mysql.createPool(config.mysql.select_only);
 
 // 获取报表列表
 router.get('/', (req, res) => {
